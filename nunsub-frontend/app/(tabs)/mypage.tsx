@@ -8,7 +8,7 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 
 const MyPage = () => {
   const router = useRouter();
@@ -50,7 +50,7 @@ const MyPage = () => {
       {/* 수정 버튼 */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("../updateMypage")}
+        onPress={() => router.push("/updateMypage")}
       >
         <Text style={styles.buttonText}>수정하기</Text>
       </TouchableOpacity>
