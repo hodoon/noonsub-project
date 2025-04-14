@@ -1,29 +1,31 @@
 import { Stack } from "expo-router";
 import React from "react";
-
+import { UserProvider } from "../contexts/UserContext"; // ← 경로 확인
 
 export default function AppLayout() {
   return (
-    <Stack
-      screenOptions={{
-        headerShown: false,
-      }}
-    >
-      <Stack.Screen name="home" />
-      <Stack.Screen
-        name="mypage"
-        options={{
-          gestureEnabled: false, // ✅스와이프 제스처 비활성화
-          animation: "slide_from_left", // ✅애니메이션 효과
+    <UserProvider>
+      <Stack
+        screenOptions={{
+          headerShown: false,
         }}
-      />
-      <Stack.Screen
-        name="updateMypage"
-        options={{
-          gestureEnabled: false, // ✅스와이프 제스처 비활성화
-          animation: "default", // ✅애니메이션 비활성화
-        }}
-      />
-    </Stack>
+      >
+        <Stack.Screen name="home" />
+        <Stack.Screen
+          name="mypage"
+          options={{
+            gestureEnabled: false,
+            animation: "slide_from_left",
+          }}
+        />
+        <Stack.Screen
+          name="updateMypage"
+          options={{
+            gestureEnabled: false,
+            animation: "default",
+          }}
+        />
+      </Stack>
+    </UserProvider>
   );
 }

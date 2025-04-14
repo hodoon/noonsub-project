@@ -1,4 +1,5 @@
-// app/_layout.tsx
+
+
 import { Stack } from 'expo-router';
 
 export default function RootLayout() {
@@ -7,5 +8,4 @@ export default function RootLayout() {
       initialRouteName="splash" // 👈 이게 핵심!
       screenOptions={{ headerShown: false }}
     />
-  );
-}
+  )}
