@@ -1,6 +1,6 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { UserProvider } from "../contexts/UserContext"; // ← 경로 확인
+import { UserProvider } from "../contexts/UserContext";
 
 export default function AppLayout() {
   return (
@@ -8,20 +8,24 @@ export default function AppLayout() {
       <Stack
         screenOptions={{
           headerShown: false,
+          gestureEnabled: false
         }}
       >
-        <Stack.Screen name="home" />
+        <Stack.Screen
+          name="home"
+          options={{
+            animation: "none",
+          }}
+        />
         <Stack.Screen
           name="mypage"
           options={{
-            gestureEnabled: false,
             animation: "slide_from_left",
           }}
         />
         <Stack.Screen
           name="updateMypage"
           options={{
-            gestureEnabled: false,
             animation: "default",
           }}
         />

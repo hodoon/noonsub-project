@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
 } from "react-native";
 import { useRouter } from "expo-router";
-import { useUser } from "../../contexts/UserContext";
+import { useUser } from "../contexts/UserContext";
+import Ionicons from "react-native-vector-icons/Octicons";
 
 const MyPage = () => {
   const router = useRouter();
@@ -18,6 +19,19 @@ const MyPage = () => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.btnContainer}>
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => router.push("/home")}
+        >
+          <Ionicons
+            name="home"
+            size={28}
+            color="#007AFF"
+            style={styles.backIcon}
+          />
+        </TouchableOpacity>
+      </View>
       {/* 프로필 이미지 */}
       <TouchableOpacity>
         <Image
@@ -63,13 +77,25 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    paddingTop: 120,
+    paddingTop: 80,
     paddingHorizontal: 20,
   },
   loadingContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+  },
+  btnContainer: {
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "flex-start",
+    paddingHorizontal: 8,
+  },
+  backButton: {
+    paddingVertical: 12,
+  },
+  backIcon: {
+    width: 24,
   },
   avatar: {
     width: 100,
