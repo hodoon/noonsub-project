@@ -35,7 +35,7 @@ const SetPin = () => {
         setStep("confirm");
       } else {
         if (current === firstPin) {
-          router.push({ pathname: "/login_splash", params: { pin: current } });
+          router.push({ pathname: "/welcome_splash", params: { pin: current } });
         } else {
           Vibration.vibrate(200);
           Alert.alert("비밀번호가 일치하지 않아요", "다시 입력해주세요.");

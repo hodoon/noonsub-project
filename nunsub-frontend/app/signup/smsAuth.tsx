@@ -33,7 +33,7 @@ const SmsAuth = () => {
 
   const handleVerify = () => {
     if (otp.length === 6) {
-      router.push("/setPin");
+      router.push("/signup/setPin");
     } else {
       Alert.alert("오류", "6자리 인증번호를 입력해주세요.");
     }
