@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useUser } from "../../contexts/UserContext";
+import { useUser } from "../contexts/UserContext";
 
 const UpdateMypage = () => {
   const router = useRouter();
