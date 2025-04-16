@@ -11,7 +11,7 @@ import {
 import { useRouter } from "expo-router";
 import Ionicons from "react-native-vector-icons/Ionicons";
 
-export default function LoginScreen() {
+export default function SignupScreen() {
   const router = useRouter();
   const [name, setName] = useState("");
   const [id, setId] = useState("");
@@ -31,7 +31,7 @@ export default function LoginScreen() {
   const carrierOptions = ["SKT", "KT", "LG U+", "알뜰폰"];
 
   const handleLogin = () => {
-    router.replace("/smsAuth");
+    router.replace("/signup/smsAuth");
   };
 
   useEffect(() => {

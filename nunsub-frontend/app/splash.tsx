@@ -35,7 +35,7 @@ export default function SplashScreen() {
 
     // 2초 뒤 로그인으로 이동
     const timer = setTimeout(() => {
-      router.replace('/login');
+      router.replace('/signup/signup');
     }, 2000);
 
     return () => clearTimeout(timer);

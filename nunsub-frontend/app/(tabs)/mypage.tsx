@@ -15,8 +15,6 @@ const MyPage = () => {
   const router = useRouter();
   const { user } = useUser(); // ← UserContext에서 user 가져오기
 
-  const [loading, setLoading] = useState(true);
-
   return (
     <View style={styles.container}>
       <View style={styles.btnContainer}>
