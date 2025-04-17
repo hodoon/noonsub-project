@@ -14,16 +14,22 @@ export default function NotificationScreen() {
     <View style={styles.container}>
       {/* 상단 헤더 */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="chevron-back" size={24} color="black" />
-        </TouchableOpacity>
+             {/* 뒤로가기 */}
+              <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+                <Ionicons
+                    name="chevron-back"
+                    size={28}
+                    color="#007AFF"
+                    style={styles.backIcon}
+                    />
+              </TouchableOpacity>
         <Text style={styles.headerTitle}>알림 설정</Text>
         <View style={{width:24}} />
       </View>
 
       {/* 설명 */}
-      <Text style={styles.description}>눈썰이 보내드릴 알림을 설정할 수 있어요. 📩</Text>
-      <View style={styles.divider} />
+      <Text style={styles.description}>눈썹이 보내드릴 알림을 설정할 수 있어요. 📩</Text>
+      <View style={styles.thickdivider} />
       {/* 섹션 제목 */}
       <Text style={styles.sectionTitle}>전체 구독 알림</Text>
       <Text style={styles.sectionSubText}>
@@ -85,14 +91,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
 
+  backButton: {
+    paddingVertical: 12,
+  },
+  
+  backIcon: {
+    width: 24,
+    left: -10,
+  },
+
   header: {
-    marginBottom: 40,
+    marginBottom: 20,
   },
 
   headerTitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop:30,
+    marginTop:20,
   },
   description: {
     fontSize: 14,
@@ -126,6 +141,12 @@ const styles = StyleSheet.create({
     color: '#666',
     lineHeight: 18,
     marginTop:2,
+  },
+
+  thickdivider:{
+    height: 10,
+    backgroundColor: '#F2F6FF',
+    marginBottom: 24,
   },
   
   divider: {
