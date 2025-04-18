@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
+import { GestureHandlerRootView, Swipeable } from 'react-native-gesture-handler';
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -27,7 +28,7 @@ export default function HomeScreen() {
     router.push('/create/addsub');
   };
 
-  const handleScroll = (event: { nativeEvent: { contentOffset: { y: any; }; }; }) => {
+  const handleScroll = (event: { nativeEvent: { contentOffset: { y: any } } }) => {
     const y = event.nativeEvent.contentOffset.y;
 
     Animated.timing(buttonTranslateY, {
@@ -38,14 +39,14 @@ export default function HomeScreen() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <ScrollView
         contentContainerStyle={styles.container}
         scrollEventThrottle={16}
         onScroll={handleScroll}
       >
         <View style={styles.header}>
-          <TouchableOpacity style={styles.profile} onPress={() => router.push('/mypage')}>
+          <TouchableOpacity style={styles.profile} onPress={() => router.push('./menu/mypage')}>
             <Image
               source={require('../../assets/images/profile.png')}
               style={styles.avatar}
@@ -78,22 +79,45 @@ export default function HomeScreen() {
           </View>
 
           {subscriptions.length > 0 ? (
-            subscriptions.map((item, index) => (
-              <View key={index} style={styles.subscriptionItem}>
-                <View style={styles.subscriptionInfo}>
-                  <View style={styles.iconCircle} />
-                  <View>
-                    <Text style={styles.subscriptionName}>{item.name}</Text>
-                    <Text style={styles.subscriptionDetail}>
-                      {item.price.toLocaleString()}원 / {item.cycle}
-                    </Text>
+            subscriptions.map((item, index) => {
+              const handleDelete = () => {
+                const updated = [...subscriptions];
+                updated.splice(index, 1);
+                setSubscriptions(updated);
+              };
+
+              const renderRightActions = () => (
+                <TouchableOpacity
+                  onPress={handleDelete}
+                  style={styles.deleteButton}
+                >
+                  <Text style={styles.deleteButtonText}>해지</Text>
+                </TouchableOpacity>
+              );
+
+              return (
+                <Swipeable
+                  key={index}
+                  renderRightActions={renderRightActions}
+                  overshootRight={false}
+                >
+                  <View style={styles.subscriptionItem}>
+                    <View style={styles.subscriptionInfo}>
+                      <View style={styles.iconCircle} />
+                      <View>
+                        <Text style={styles.subscriptionName}>{item.name}</Text>
+                        <Text style={styles.subscriptionDetail}>
+                          {item.price.toLocaleString()}원 / {item.cycle}
+                        </Text>
+                      </View>
+                    </View>
+                    <View style={styles.dateBadge}>
+                      <Text style={styles.dateBadgeText}>{item.remaining}</Text>
+                    </View>
                   </View>
-                </View>
-                <View style={styles.dateBadge}>
-                  <Text style={styles.dateBadgeText}>{item.remaining}</Text>
-                </View>
-              </View>
-            ))
+                </Swipeable>
+              );
+            })
           ) : (
             <TouchableOpacity style={styles.emptyBox} onPress={handleAddSubscription}>
               <Text style={styles.emptyText}>등록된 구독이 없어요</Text>
@@ -103,7 +127,6 @@ export default function HomeScreen() {
         </View>
       </ScrollView>
 
-      {/* 하단 고정 애니메이션 버튼 */}
       <Animated.View
         style={[
           styles.addButtonContainer,
@@ -114,7 +137,7 @@ export default function HomeScreen() {
           <Text style={styles.addButtonText}>+ 구독 추가</Text>
         </TouchableOpacity>
       </Animated.View>
-    </View>
+      </GestureHandlerRootView>
   );
 }
 
@@ -122,11 +145,11 @@ const styles = StyleSheet.create({
   container: {
     paddingTop: 60,
     paddingHorizontal: 20,
-    paddingBottom: 500, // 하단 버튼 공간 확보
+    paddingBottom: 500,
     backgroundColor: '#fff',
   },
   header: {
-    marginTop:20,
+    marginTop: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -254,16 +277,31 @@ const styles = StyleSheet.create({
     backgroundColor: '#72A9FF',
     paddingVertical: 12,
     paddingHorizontal: 30,
-    borderRadius: 24,
+    borderRadius: 26,
     shadowColor: '#387CFF',
     shadowOffset: { width: 0, height: 30 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
+    marginBottom:20,
   },
   addButtonText: {
     color: '#fff',
     fontSize: 16,
     fontWeight: '600',
+  },
+  deleteButton: {
+    backgroundColor: '#FF5B5B',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 70,
+    borderRadius: 50,
+    marginBottom: 12,
+    marginLeft: 10,
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 15,
   },
 });

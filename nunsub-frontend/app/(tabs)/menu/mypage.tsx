@@ -32,10 +32,7 @@ const MyPage = () => {
       </View>
       {/* 프로필 이미지 */}
       <TouchableOpacity>
-        <Image
-          source={require("../../assets/images/profile.png")}
-          style={styles.avatar}
-        />
+      <Image source={require("../../../assets/images/profile.png")} />
         <Text style={styles.selectPhoto}>사진 선택</Text>
       </TouchableOpacity>
 
@@ -62,7 +59,7 @@ const MyPage = () => {
       {/* 수정 버튼 */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("/updateMypage")}
+        onPress={() => router.push("./updateMypage")}
       >
         <Text style={styles.buttonText}>수정하기</Text>
       </TouchableOpacity>

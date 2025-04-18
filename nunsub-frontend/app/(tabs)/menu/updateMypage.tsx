@@ -12,7 +12,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import Ionicons from "react-native-vector-icons/Ionicons";
-import { useUser } from "../contexts/UserContext";
+import { useUser } from "../../contexts/UserContext";
 
 const UpdateMypage = () => {
   const router = useRouter();
@@ -29,7 +29,7 @@ const UpdateMypage = () => {
   const handleSubmit = () => {
     setUser(formData);
     console.log("Updated:", formData);
-    router.push("/mypage");
+    router.push("./mypage");
   };
 
   const openModal = () => {
@@ -97,7 +97,7 @@ const UpdateMypage = () => {
     >
       <TouchableOpacity
         style={styles.backButton}
-        onPress={() => router.push("/mypage")}
+        onPress={() => router.push("./mypage")}
       >
         <Ionicons
           name="chevron-back"
