@@ -54,7 +54,7 @@ export default function HomeScreen() {
             <Text style={styles.headerText}>홈</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => router.push('/notification/index')}>
+          <TouchableOpacity onPress={() => router.push('./notification/index')}>
             <Ionicons name="notifications-outline" size={24} color="#387CFF" />
           </TouchableOpacity>
         </View>
