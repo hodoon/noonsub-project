@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,8 @@ import {
   TouchableOpacity,
   ScrollView,
   Animated,
+  Modal,
+  TouchableWithoutFeedback,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
@@ -24,9 +26,33 @@ export default function HomeScreen() {
   const totalPrice = subscriptions.reduce((sum, item) => sum + item.price, 0);
   const buttonTranslateY = useRef(new Animated.Value(0)).current;
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const slideAnim = useRef(new Animated.Value(0)).current;
+
+  const carrierOptions = ['카드 연동하기', '직적입력하기'];
+  const [carrier, setCarrier] = useState('');
+
   const handleAddSubscription = () => {
-    router.push('/create/addsub');
+    setIsModalVisible(true);
   };
+
+  const closeModal = () => {
+    Animated.timing(slideAnim, {
+      toValue: 0,
+      duration: 200,
+      useNativeDriver: true,
+    }).start(() => setIsModalVisible(false));
+  };
+
+  useEffect(() => {
+    if (isModalVisible) {
+      Animated.timing(slideAnim, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [isModalVisible]);
 
   const handleScroll = (event: { nativeEvent: { contentOffset: { y: any } } }) => {
     const y = event.nativeEvent.contentOffset.y;
@@ -137,7 +163,57 @@ export default function HomeScreen() {
           <Text style={styles.addButtonText}>+ 구독 추가</Text>
         </TouchableOpacity>
       </Animated.View>
-      </GestureHandlerRootView>
+
+      {/* 하단 모달 */}
+      {isModalVisible && (
+        <Modal transparent visible animationType="none" onRequestClose={closeModal}>
+          <TouchableWithoutFeedback onPress={closeModal}>
+            <View style={styles.modalOverlay} />
+          </TouchableWithoutFeedback>
+
+          <Animated.View
+            style={[
+              styles.modalContainer,
+              {
+                transform: [
+                  {
+                    translateY: slideAnim.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [300, 0],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          >
+            <Text style={styles.modalTitle}>새로운 카드를 어떻게 추가할까요?</Text>
+
+            {carrierOptions.map((item) => (
+  <TouchableOpacity
+    key={item}
+    style={styles.modalItemRow}
+    onPress={() => {
+      setCarrier(item);
+      closeModal();
+
+      // 경로에 따라 라우팅
+      if (item === '카드 연동하기') {
+        router.push('/create/RegisterSubscriptionScreen');
+      } else if (item === '직적입력하기') {
+        router.push('/create/addsub');
+      }
+    }}
+  >
+    <Text style={styles.modalItemText}>{item}</Text>
+    {carrier === item && (
+      <Ionicons name="checkmark" size={20} color="#007AFF" />
+    )}
+  </TouchableOpacity>
+))}
+          </Animated.View>
+        </Modal>
+      )}
+    </GestureHandlerRootView>
   );
 }
 
@@ -283,7 +359,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
-    marginBottom:20,
+    marginBottom: 20,
   },
   addButtonText: {
     color: '#fff',
@@ -303,5 +379,34 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 15,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.3)',
+  },
+  modalContainer: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    backgroundColor: '#fff',
+    padding: 20,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  modalTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    marginBottom: 12,
+    textAlign: "center",
+
+  },
+  modalItemRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    paddingVertical: 16,
+  },
+  modalItemText: {
+    fontSize: 15,
+    color: '#333',
   },
 });
