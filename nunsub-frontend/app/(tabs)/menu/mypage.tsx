@@ -66,9 +66,10 @@ const MyPage = () => {
       >
         <Text style={styles.buttonText}>수정하기</Text>
       </TouchableOpacity>
+      <Image source={{uri:"https://cdn.brandfetch.io/toss.im/symbol"}} style={{ width: 120, height: 40 }}/>
     </View>
   );
-};
+};  
 
 const styles = StyleSheet.create({
   container: {
