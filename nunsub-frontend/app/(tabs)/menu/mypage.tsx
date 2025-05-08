@@ -32,7 +32,10 @@ const MyPage = () => {
       </View>
       {/* 프로필 이미지 */}
       <TouchableOpacity>
-      <Image source={require("../../../assets/images/profile.png")} />
+        <Image
+          source={require('../../../assets/images/profile.png')}
+          style={styles.avatar}
+        />
         <Text style={styles.selectPhoto}>사진 선택</Text>
       </TouchableOpacity>
 
@@ -59,13 +62,14 @@ const MyPage = () => {
       {/* 수정 버튼 */}
       <TouchableOpacity
         style={styles.button}
-        onPress={() => router.push("./updateMypage")}
+        onPress={() => router.push("/menu/updateMypage")}
       >
         <Text style={styles.buttonText}>수정하기</Text>
       </TouchableOpacity>
+      <Image source={{uri:"https://cdn.brandfetch.io/toss.im/symbol"}} style={{ width: 120, height: 40 }}/>
     </View>
   );
-};
+};  
 
 const styles = StyleSheet.create({
   container: {

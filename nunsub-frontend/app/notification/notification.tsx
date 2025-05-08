@@ -15,7 +15,7 @@ export default function NotificationScreen() {
       {/* 상단 헤더 */}
       <View style={styles.header}>
              {/* 뒤로가기 */}
-              <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
+              <TouchableOpacity onPress={() => router.push('/home')} style={styles.backButton}>
                 <Ionicons
                     name="chevron-back"
                     size={28}
