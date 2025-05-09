@@ -19,7 +19,9 @@ public enum ErrorCode {
     WRITE_FAIL(400, "C011", "데이터를 쓰는데 실패하였습니다."),
     EMPTY_RESULT(400, "C012", "조회 결과가 없습니다."),
     SEND_SMS_FAIL(400, "C013", "SMS 전송에 실패하였습니다."),
-    MAKE_SIGNATURE_FAIL(400, "C014", "서명 생성 실패");
+    MAKE_SIGNATURE_FAIL(400, "C014", "서명 생성 실패"),
+    ILLEGAL_PASSWORD(400, "C015", "비밀번호가 서로 일치하지 않습니다."),
+    ALREADY_REGISTERED_MEMBER(400, "C016", "이미 가입된 회원입니다.");
 
     private final int status;
     private final String code;
