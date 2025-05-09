@@ -23,6 +23,10 @@ public class SmsController {
     @PostMapping("/verify")
     public ResponseEntity<?> verifyCode(@RequestBody @Valid SmsVerifyDto dto){
         boolean isValid = naverSmsService.verifyCode(dto.getPhoneNumber(), dto.getCode());
-        return isValid ? ResponseEntity.ok("인증 성공") : ResponseEntity.badRequest().body("verify fail");
+        if (isValid) {
+            return ResponseEntity.ok("인증 성공");
+        } else {
+            return ResponseEntity.badRequest().body("인증 실패");
+        }
     }
 }
