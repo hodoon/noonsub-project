@@ -38,7 +38,9 @@ jobs:
               ${{ runner.os }}-gradle-build-
 
       - name: Grant execute permission for gradlew
+        working-directory: ./nunsub-backend
         run: chmod +x gradlew
 
       - name: Build with Gradle
+        working-directory: ./nunsub-backend
         run: ./gradlew clean build --build-cache
