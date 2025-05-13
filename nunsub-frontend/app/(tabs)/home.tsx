@@ -112,7 +112,7 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.profile}
-          onPress={() => router.push("./menu/menu")}
+          onPress={() => router.push("./menu/mypage")}
         >
           <Image
             source={require("../../assets/images/profile.png")}
@@ -133,9 +133,10 @@ export default function HomeScreen() {
         onScroll={handleScroll}
       >
         <Image
-          source={{
-            uri: "https://cdn-icons-png.flaticon.com/512/633/633611.png",
-          }}
+          // source={{
+          //   uri: "https://cdn-icons-png.flaticon.com/512/633/633611.png",
+          // }}
+          source={require("../../assets/images/card.png")}
           // source={require('../../assets/images/card3D.jpg')}
           style={styles.cardImage}
         />
@@ -368,8 +369,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   cardImage: {
-    width: 100,
-    height: 70,
+    width: 140,
+    height: 110,
     alignSelf: "center",
     marginBottom: 20,
     resizeMode: "contain",
@@ -526,7 +527,7 @@ const styles = StyleSheet.create({
   },
   addButtonContainer: {
     position: "absolute",
-    bottom: 20,
+    bottom:0,
     left: 0,
     right: 0,
     alignItems: "center",
@@ -537,7 +538,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 26,
     shadowColor: "#387CFF",
-    shadowOffset: { width: 0, height: 30 },
+    shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
