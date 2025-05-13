@@ -31,8 +31,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         uses: docker/build-push-action@v6.7.0
         with:
-          context: .
-          file: ./Dockerfile
+          context: ./noonsub-backend
+          file: ./noonsub-backend/Dockerfile
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.PROD_IMAGE_NAME }}:latest
           platforms: linux/amd64
