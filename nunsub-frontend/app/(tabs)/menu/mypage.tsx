@@ -9,7 +9,7 @@ import {
 } from "react-native";
 import { useRouter } from "expo-router";
 import { useUser } from "../../contexts/UserContext";
-import Ionicons from "react-native-vector-icons/Octicons";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 const MyPage = () => {
   const router = useRouter();
@@ -20,10 +20,10 @@ const MyPage = () => {
       <View style={styles.btnContainer}>
         <TouchableOpacity
           style={styles.backButton}
-          onPress={() => router.push("/home")}
+          onPress={() => router.back()}
         >
           <Ionicons
-            name="home"
+            name="chevron-back"
             size={28}
             color="#007AFF"
             style={styles.backIcon}
@@ -66,7 +66,6 @@ const MyPage = () => {
       >
         <Text style={styles.buttonText}>수정하기</Text>
       </TouchableOpacity>
-      <Image source={{uri:"https://cdn.brandfetch.io/toss.im/symbol"}} style={{ width: 120, height: 40 }}/>
     </View>
   );
 };  
@@ -76,7 +75,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
-    paddingTop: 80,
     paddingHorizontal: 20,
   },
   loadingContainer: {
@@ -92,6 +90,7 @@ const styles = StyleSheet.create({
   },
   backButton: {
     paddingVertical: 12,
+    marginLeft: -8,
   },
   backIcon: {
     width: 24,
@@ -100,6 +99,7 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 50,
+    marginTop: 32,
   },
   selectPhoto: {
     color: "#007AFF",
