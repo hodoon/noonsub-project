@@ -15,5 +15,7 @@ spring:
 
 naver:
   sms:
-    key: dummy-key
-    secret: dummy-secret
+    access-key: dummy-access-key
+    secret-key: dummy-secret-key
+    service-id: dummy-service-id
+    sender-phone: dummy-sender-phone
