@@ -6,7 +6,8 @@ COPY gradle gradle/
 
 RUN gradle clean build
 
-FROM eclipse-termurin:21-jre-alpine
+
+FROM eclipse-temurin:21-jre-alpine
 WORKDIR /app
 
 COPY --from=build /home/gradle/project/build/libs/nunsub-api.jar api.jar
