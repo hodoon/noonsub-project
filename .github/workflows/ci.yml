@@ -22,7 +22,7 @@ jobs:
         uses: actions/cache@v3
         with:
           path:
-            ~/.gradle/cashes
+            ~/.gradle/caches
             ~/.gradle/wrapper
           key:
             ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
