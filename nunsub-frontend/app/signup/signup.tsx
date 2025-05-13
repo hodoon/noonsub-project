@@ -1,9 +1,12 @@
-import { Keyboard, Modal, TouchableWithoutFeedback } from "react-native";
 import React, { useState, useEffect, useRef } from "react";
 import {
+  Keyboard,
+  Modal,
+  TouchableWithoutFeedback,
   View,
   Text,
   TextInput,
+  Alert,
   TouchableOpacity,
   StyleSheet,
   Animated,
@@ -30,8 +33,33 @@ export default function SignupScreen() {
 
   const carrierOptions = ["SKT", "KT", "LG U+", "알뜰폰"];
 
-  const handleLogin = () => {
-    router.replace("/signup/smsAuth");
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("http://ip:8080/api/sms/send", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          phoneNumber: phone.replace(/-/g, ""),
+        }),
+      });
+
+      if (response.ok) {
+        console.log("인증 문자 전송 성공");
+        router.replace({
+          pathname: "/signup/smsAuth",
+          params: { phone: phone.replace(/-/g, "") },
+        });
+      } else {
+        const errorText = await response.text(); // 또는 response.json()
+        console.error("서버 응답 에러:", errorText);
+        Alert.alert("오류", errorText); // 사용자에게 보여줄 수도 있음
+      }
+    } catch (error) {
+      console.error("네트워크 오류:", error);
+      Alert.alert("오류", "네트워크 오류가 발생했습니다.");
+    }
   };
 
   useEffect(() => {
@@ -344,9 +372,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   idInputWrapper: {
-    position: 'relative',
+    position: "relative",
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   idInput: {
     height: 80,
@@ -360,7 +388,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     right: 16,
     top: "50%",
-    transform: [{ translateY: -9}, { translateX: -140 }],
+    transform: [{ translateY: -9 }, { translateX: -140 }],
     fontSize: 22,
     fontWeight: "bold",
     color: "#999",

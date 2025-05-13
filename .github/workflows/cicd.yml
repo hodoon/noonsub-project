@@ -55,6 +55,7 @@ jobs:
           port: ${{ secrets.PROD_SERVER_PORT }}
           username: ${{ secrets.PROD_SERVER_USERNAME }}
           key: ${{ secrets.PROD_SERVER_SSH_KEY }}
+          passphrase: ${{ secrets.SSH_PASSPHRASE }}
           script: |
             cd /home/nunsubdep/nunsub/production/
             mkdir -p ./env
