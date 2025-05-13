@@ -2,6 +2,8 @@ FROM gradle:8.12.1-jdk21-alpine AS build
 WORKDIR /home/gradle/project
 
 COPY gradlew ./
+RUN chmod +x gradlew
+
 COPY gradle ./gradle/
 COPY build.gradle settings.gradle ./
 COPY src ./src
