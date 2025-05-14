@@ -35,7 +35,6 @@ export default function SignupScreen() {
 
   const handleLogin = async () => {
       router.push("/signup/smsAuth");
-
   };
 
   useEffect(() => {
