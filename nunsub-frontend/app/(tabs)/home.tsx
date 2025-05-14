@@ -112,7 +112,11 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.profile}
+
+          onPress={() => router.push("./menu/mypage")}
+
           onPress={() => router.push("./menu/menu")}
+
         >
           <Image
             source={require("../../assets/images/profile.png")}
@@ -133,10 +137,7 @@ export default function HomeScreen() {
         onScroll={handleScroll}
       >
         <Image
-          source={{
-            uri: "https://cdn-icons-png.flaticon.com/512/633/633611.png",
-          }}
-          // source={require('../../assets/images/card3D.jpg')}
+          source={require("../../assets/images/card.png")}
           style={styles.cardImage}
         />
 
@@ -164,42 +165,45 @@ export default function HomeScreen() {
             <View style={styles.divider} />
 
             <View style={styles.summaryButtons}>
-              {[
-                {
-                  label: "내 마음대로\n직접 등록하기",
-                  icon: <FontAwesome name="edit" size={24} color="#007AFF" />,
-                },
-                {
-                  label: "결제 전에\n미리 알림",
-                  icon: <FontAwesome name="bell" size={24} color="#007AFF" />,
-                },
-                {
-                  label: "간편하게\n해지하기",
-                  icon: (
-                    <FontAwesome5 name="scissors" size={24} color="#007AFF" />
-                  ),
-                },
-                {
-                  label: "내 구독\n한눈에 보기",
-                  icon: <FontAwesome name="eye" size={24} color="#007AFF" />,
-                },
-                {
-                  label: "결제 기록에서\n한번에 찾기",
-                  icon: (
-                    <FontAwesome5
-                      name="file-invoice-dollar"
-                      size={24}
-                      color="#007AFF"
-                    />
-                  ),
-                },
-              ].map((item, idx) => (
-                <TouchableOpacity key={idx} style={styles.circleButton}>
-                  <View style={styles.circleIcon}>{item.icon}</View>
-                  <Text style={styles.circleLabel}>{item.label}</Text>
-                </TouchableOpacity>
-              ))}
-            </View>
+    {[
+      {
+        label: "내 마음대로\n직접 등록하기",
+        icon: <FontAwesome name="edit" size={24} color="#007AFF" />,
+      },
+      {
+        label: "결제 전에\n미리 알림",
+        icon: <FontAwesome name="bell" size={24} color="#007AFF" />,
+      },
+      {
+        label: "간편하게\n해지하기",
+        icon: <FontAwesome5 name="scissors" size={24} color="#007AFF" />,
+      },
+      {
+        label: "내 구독\n한눈에 보기",
+        icon: <FontAwesome name="eye" size={24} color="#007AFF" />,
+      },
+      {
+        label: "결제 기록에서\n한번에 찾기",
+        icon: (
+          <FontAwesome5
+            name="file-invoice-dollar"
+            size={24}
+            color="#007AFF"
+          />
+        ),
+      },
+    ].map((item, idx) => (
+      <TouchableOpacity
+        key={idx}
+        style={styles.circleButton}
+        // onPress={() => router.push("./SubscriptionDetailScreen")}
+      >
+        <View style={styles.circleIcon}>{item.icon}</View>
+        <Text style={styles.circleLabel}>{item.label}</Text>
+      </TouchableOpacity>
+    ))}
+  </View>
+
           </View>
 
           <View style={styles.sectionTitleRow}>
@@ -232,23 +236,38 @@ export default function HomeScreen() {
                   renderRightActions={renderRightActions}
                   overshootRight={false}
                 >
-                  <View style={styles.subscriptionItem}>
-                    <View style={styles.subscriptionInfo}>
-                      <Image
-                        source={{ uri: item.imageUrl }}
-                        style={styles.subscriptionIcon}
-                      />
-                      <View>
-                        <Text style={styles.subscriptionName}>{item.name}</Text>
-                        <Text style={styles.subscriptionDetail}>
-                          {item.price.toLocaleString()}원 / {item.cycle}
-                        </Text>
-                      </View>
-                    </View>
-                    <View style={styles.dateBadge}>
-                      <Text style={styles.dateBadgeText}>{item.remaining}</Text>
-                    </View>
-                  </View>
+<TouchableOpacity
+  style={styles.subscriptionItem}
+  onPress={() =>
+    router.push({
+      pathname: "../../contexts/SubscriptionDetailScreen",
+      params: {
+        name: item.name,
+        price: item.price,
+        cycle: item.cycle,
+        remaining: item.remaining,
+        imageUrl: item.imageUrl,
+      },
+    })
+  }
+>
+  <View style={styles.subscriptionInfo}>
+    <Image
+      source={{ uri: item.imageUrl }}
+      style={styles.subscriptionIcon}
+    />
+    <View>
+      <Text style={styles.subscriptionName}>{item.name}</Text>
+      <Text style={styles.subscriptionDetail}>
+        {item.price.toLocaleString()}원 / {item.cycle}
+      </Text>
+    </View>
+  </View>
+  <View style={styles.dateBadge}>
+    <Text style={styles.dateBadgeText}>{item.remaining}</Text>
+  </View>
+</TouchableOpacity>
+
                 </Swipeable>
               );
             })
@@ -320,7 +339,7 @@ export default function HomeScreen() {
                   // 경로에 따라 라우팅
                   if (item === "카드 연동하기") {
                     router.push("/create/RegisterSubscriptionScreen");
-                  } else if (item === "직적입력하기") {
+                  } else if (item === "직접 입력하기") {
                     router.push("/create/addsub");
                   }
                 }}
@@ -368,8 +387,8 @@ const styles = StyleSheet.create({
     fontWeight: "600",
   },
   cardImage: {
-    width: 100,
-    height: 70,
+    width: 140,
+    height: 110,
     alignSelf: "center",
     marginBottom: 20,
     resizeMode: "contain",
@@ -526,7 +545,7 @@ const styles = StyleSheet.create({
   },
   addButtonContainer: {
     position: "absolute",
-    bottom: 20,
+    bottom:0,
     left: 0,
     right: 0,
     alignItems: "center",
@@ -537,7 +556,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     borderRadius: 26,
     shadowColor: "#387CFF",
-    shadowOffset: { width: 0, height: 30 },
+    shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.1,
     shadowRadius: 4,
     elevation: 3,
