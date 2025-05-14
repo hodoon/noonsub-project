@@ -112,7 +112,11 @@ export default function HomeScreen() {
       <View style={styles.header}>
         <TouchableOpacity
           style={styles.profile}
+
+          onPress={() => router.push("./menu/mypage")}
+
           onPress={() => router.push("./menu/menu")}
+
         >
           <Image
             source={require("../../assets/images/profile.png")}
@@ -133,11 +137,7 @@ export default function HomeScreen() {
         onScroll={handleScroll}
       >
         <Image
-          // source={{
-          //   uri: "https://cdn-icons-png.flaticon.com/512/633/633611.png",
-          // }}
           source={require("../../assets/images/card.png")}
-          // source={require('../../assets/images/card3D.jpg')}
           style={styles.cardImage}
         />
 
