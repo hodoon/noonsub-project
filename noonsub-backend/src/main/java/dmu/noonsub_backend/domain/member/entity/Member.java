@@ -29,11 +29,16 @@ public class Member extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String phoneNumber;
 
+    @Column(unique = true)
+    private String ci;
+
     @Column(nullable = false)
     private String mobileCarrier;
 
     @Column(nullable = false)
-    private String password;
+    private String pin;
+
+    private boolean isBiometricEnabled = false;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)

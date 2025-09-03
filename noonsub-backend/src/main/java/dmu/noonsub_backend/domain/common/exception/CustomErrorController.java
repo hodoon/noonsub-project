@@ -19,9 +19,9 @@ public class CustomErrorController implements ErrorController {
 
         // 404 에러
         if (status == HttpStatus.NOT_FOUND)
-            return ResponseEntity.status(status).body(new ErrorResponse(ErrorCode.NOT_FOUND));
+            return ResponseEntity.status(status).body(ErrorResponse.of(ErrorCode.NOT_FOUND, request.getRequestURI()));
 
         // 기타 에러
-        return ResponseEntity.status(status).body(new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR));
+        return ResponseEntity.status(status).body(ErrorResponse.of(ErrorCode.INTERNAL_SERVER_ERROR, request.getRequestURI()));
     }
 }
